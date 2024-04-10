@@ -23,7 +23,7 @@ A hash table uses a hash function to compute an *index* into an array of *bucket
 #### What hash table do we use?
 For hash tables, the main goal is to choose a proper *hash function* and find the most efficient and quick ways to solve *collisions*. During this project we are using a [separate chaining](https://en.wikipedia.org/wiki/Hash_table#Separate_chaining) method based on a doubly-linked list.
 
-![Separate chaining](img/IMG_1272.jpg)
+![Separate chaining](/img/chained_hash_table.jpg)
 
 As for the hash functions' choice, there will be tests for some of them to choose more suitable one.
 

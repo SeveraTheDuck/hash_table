@@ -198,14 +198,14 @@ ListFindNode (list_t* const list,
 /**
  * @brief Constructor for list key structure
  *
- * @param key A buffer at least key_size bytes long
+ * @param key_buffer A buffer at least key_size bytes long
  * @param key_size Number of bytes to copy
  *
  * @retval Pointer to list_key structure
  * @retval NULL if error occured
  */
 list_key*
-ListKeyConstructor (const void* const key,
+ListKeyConstructor (const void* const key_buffer,
                     const size_t key_size);
 
 
@@ -223,14 +223,14 @@ ListKeyDestructor (list_key* const key);
 /**
  * @brief Constructor for list value structure
  *
- * @param value A buffer at least value_size bytes long
+ * @param value_buffer A buffer at least value_size bytes long
  * @param value_size Number of bytes to copy
  *
  * @retval Pointer to the list_value structure
  * @retval NULL if error occured
  */
 list_value*
-ListValueConstructor (const void* const value,
+ListValueConstructor (const void* const value_buffer,
                       const size_t value_size);
 
 

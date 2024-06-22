@@ -53,15 +53,6 @@ struct list_value
 // Static functions prototypes
 //-----------------------------------------------------------------------------
 
-static list_node*
-ListNodeConstructor (const list_key* const key,
-                     const list_value* const value);
-
-
-static list_node*
-ListNodeDestructor (list_node* const node);
-
-
 static list_key*
 ListKeyCopy (const list_key* const key);
 
@@ -205,6 +196,37 @@ ListFindNode (list_t* const list,
 }
 
 
+list_node*
+ListNodeConstructor (const list_key* const key,
+                     const list_value* const value)
+{
+    list_node* const node = (list_node*) malloc (sizeof (list_node));
+    if (node == NULL) return NULL;
+
+    node->key   = ListKeyCopy   (key);
+    node->value = ListValueCopy (value);
+    node->next  = node;
+    node->prev  = node;
+
+    return node;
+}
+
+
+list_node*
+ListNodeDestructor (list_node* const node)
+{
+    if (node == NULL) return NULL;
+
+    node->key   = ListKeyDestructor   (node->key);
+    node->value = ListValueDestructor (node->value);
+    node->next  = NULL;
+    node->prev  = NULL;
+
+    free (node);
+    return NULL;
+}
+
+
 list_key*
 ListKeyConstructor (const void* const key_buffer,
                     const size_t key_size)
@@ -276,37 +298,6 @@ ListValueDestructor (list_value* const value)
 //-----------------------------------------------------------------------------
 // Static functions implementation
 //-----------------------------------------------------------------------------
-
-static list_node*
-ListNodeConstructor (const list_key* const key,
-                     const list_value* const value)
-{
-    list_node* const node = (list_node*) malloc (sizeof (list_node));
-    if (node == NULL) return NULL;
-
-    node->key   = ListKeyCopy   (key);
-    node->value = ListValueCopy (value);
-    node->next  = node;
-    node->prev  = node;
-
-    return node;
-}
-
-
-static list_node*
-ListNodeDestructor (list_node* const node)
-{
-    if (node == NULL) return NULL;
-
-    node->key   = ListKeyDestructor   (node->key);
-    node->value = ListValueDestructor (node->value);
-    node->next  = NULL;
-    node->prev  = NULL;
-
-    free (node);
-    return NULL;
-}
-
 
 static list_key*
 ListKeyCopy (const list_key* const key)

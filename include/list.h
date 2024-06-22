@@ -120,6 +120,33 @@ ListDestructor (list_t* const list);
 
 
 /**
+ * @brief Constructor for a list_node structure
+ *
+ * @param key Key of the list node
+ * @param value Value of the list node
+ *
+ * @retval Pointer to the list_node structure
+ * @retval NULL if allocation error occurred
+ *
+ * @details Copies key and value to the newly allocated ones
+ */
+list_node*
+ListNodeConstructor (const list_key* const key,
+                     const list_value* const value);
+
+
+/**
+ * @brief Destructor for a list_node structure
+ *
+ * @param node Pointer to the node to be destructed
+ *
+ * @retval NULL
+ */
+list_node*
+ListNodeDestructor (list_node* const node);
+
+
+/**
  * @brief Insert node with given key and value after a given prev_node
  *
  * @param list A pointer to the list where to insert

@@ -195,7 +195,7 @@ ListFindNode (list_t* const list,
 
     for (size_t i = 0; i < elem_number; ++i)
     {
-        if (key_cmp (cur_node->key, key) == LIST_KEY_EQUAL)
+        if (key_cmp (cur_node->key, key) == LIST_KEY_CMP_EQUAL)
             return cur_node;
 
         cur_node = cur_node->next;

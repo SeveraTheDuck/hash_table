@@ -1,5 +1,9 @@
 /**
- * @note
+ * @file list.h
+ * @author SeveraTheDuck
+ * @brief List interface
+ *
+ * @details
  * This file contains list interface only, no particular implementation details
  * It is intended to be a way to use one interface for multiple implementations
  *
@@ -54,14 +58,14 @@ typedef struct list_value list_value;
 
 
 /**
- * @brief A enumeration for a key comparison function result
+ * @brief A enumeration for a key comparator function result
  */
 typedef
 enum list_key_cmp_status
 {
-    LIST_KEY_LESS    = -1,  ///< The first key is less than the second
-    LIST_KEY_EQUAL   =  0,  ///< The keys are equal
-    LIST_KEY_GREATER =  1   ///< The first key is greater than the second
+    LIST_KEY_CMP_LESS    = -1,  ///< The first key is less than the second
+    LIST_KEY_CMP_EQUAL   =  0,  ///< The keys are equal
+    LIST_KEY_CMP_GREATER =  1   ///< The first key is greater than the second
 }
 list_key_cmp_status;
 

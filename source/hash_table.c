@@ -30,6 +30,17 @@ struct hash_table
 // Static functions prototypes
 //-----------------------------------------------------------------------------
 
+/**
+ * @brief Get the bucket for the given key
+ *
+ * @param table Hash table
+ * @param key Key to find bucket
+ *
+ * @retval Pointer to the bucket
+ * @retval NULL if bad input error occurred
+ *
+ * @details If the bucket was not constructed yet, constructs and returns it
+ */
 static hash_table_bucket*
 GetBucket (hash_table_t* const table,
            hash_table_key* const key);

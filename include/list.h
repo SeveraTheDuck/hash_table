@@ -71,9 +71,16 @@ list_key_cmp_status;
 
 
 /**
+ * @brief A type for a key comparator function result
+ */
+typedef int list_key_cmp_t;
+
+
+/**
  * @brief A signature for key comparator function
  */
-typedef list_key_cmp_status (*list_key_cmp)(list_key* const, list_key* const);
+typedef
+list_key_cmp_t (*list_key_cmp)(list_key* const, list_key* const);
 
 
 /**

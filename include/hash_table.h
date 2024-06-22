@@ -74,11 +74,17 @@ hash_table_key_cmp_status;
 
 
 /**
+ * @brief A type for a key comparator function result
+ */
+typedef int hash_table_key_cmp_t;
+
+
+/**
  * @brief A signature for key comparator function
  */
 typedef
-hash_table_key_cmp_status (*hash_table_key_comparator) (hash_table_key* const,
-                                                        hash_table_key* const);
+hash_table_key_cmp_t (*hash_table_key_comparator) (hash_table_key* const,
+                                                   hash_table_key* const);
 
 
 /**
@@ -212,8 +218,8 @@ HashTableInsert (hash_table_t*     const table,
  * and deletes it
  */
 hash_table_error_status
-HashTableDelete (hash_table_t*    const table,
-                 hash_table_node* const key,
+HashTableDelete (hash_table_t*   const table,
+                 hash_table_key* const key,
                  hash_table_key_comparator key_cmp);
 
 

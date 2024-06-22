@@ -99,7 +99,7 @@ list_error_status;
  * @retval NULL if allocation error occurred
  */
 list_t*
-ListConstructor ();
+ListConstructor (void);
 
 
 /**
@@ -125,8 +125,10 @@ ListDestructor (list_t* const list);
  *
  * @retval LIST_SUCCESS if function ended successfully
  * @retval LIST_ERROR   if error occured (implementation defined)
+ *
+ * @note Use ListPushFront() function to push into head of the list
  */
-list_error_t
+list_error_status
 ListInsert (list_t*     const list,
             list_node*  const prev_node,
             list_key*   const key,
@@ -143,7 +145,7 @@ ListInsert (list_t*     const list,
  * @retval LIST_SUCCESS if function ended successfully
  * @retval LIST_ERROR   if error occured (implementation defined)
  */
-list_error_t
+list_error_status
 ListPushBack (list_t*     const list,
               list_key*   const key,
               list_value* const value);
@@ -159,7 +161,7 @@ ListPushBack (list_t*     const list,
  * @retval LIST_SUCCESS if function ended successfully
  * @retval LIST_ERROR   if error occured (implementation defined)
  */
-list_error_t
+list_error_status
 ListPushFront (list_t*     const list,
                list_key*   const key,
                list_value* const value);
@@ -174,7 +176,7 @@ ListPushFront (list_t*     const list,
  * @retval LIST_SUCCESS if function ended successfully
  * @retval LIST_ERROR   if error occured (implementation defined)
  */
-list_error_t
+list_error_status
 ListDeleteNode (list_t*    const list,
                 list_node* const node);
 
@@ -191,7 +193,7 @@ ListDeleteNode (list_t*    const list,
  */
 list_node*
 ListFindNode (list_t* const list,
-              const list_key* const key,
+              list_key* const key,
               list_key_cmp key_cmp);
 
 

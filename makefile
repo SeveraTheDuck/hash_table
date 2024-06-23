@@ -2,23 +2,30 @@
 #------------------------------------------------------------------------------
 
 # Directories
-SOURCE_DIR	:= source/
-INCLUDE_DIR	:= include/
-OBJECT_DIR	:= object/
+SOURCE_DIR		:= source/
+LIB_SOURCE_DIR	:= lib/source/
+INCLUDE_DIR		:= include/
+LIB_INCLUDE_DIR	:= lib/include/
+OBJECT_DIR		:= object/
 
 # Files
-SOURCE	:= $(shell find $(SOURCE_DIR) -name "*.c")
-OBJECT	:= $(addprefix $(OBJECT_DIR),$(patsubst %.c,%.o,$(notdir $(SOURCE))))
-DEP		:= $(patsubst %.o,%.o.d, $(OBJECT))
+COMMON_SOURCE	:= $(shell find $(LIB_SOURCE_DIR) -name "*.c") $(shell find $(SOURCE_DIR) -name "*.c" -not -name "hash_table.c")
+SOURCE			:= $(COMMON_SOURCE) $(shell find $(SOURCE_DIR) -name "hash_table.c")
+
+COMMON_OBJECT	:= $(addprefix $(OBJECT_DIR),$(patsubst %.c,%.o,$(notdir $(COMMON_SOURCE))))
+OBJECT			:= $(addprefix $(OBJECT_DIR),$(patsubst %.c,%.o,$(notdir $(SOURCE))))
+
+DEP				:= $(patsubst %.o,%.o.d, $(OBJECT))
 
 # Executable
-RUN_EXE = hash_table
+TEST_HASH_FUNCTIONS	:= test_hash_functions
+TEST_HASH_TABLE		:= test_hash_table
 
 # Compilation
 CC			:= gcc
 FLAGS		:= -Wextra -Wall -Wfloat-equal -Wundef -Wshadow -Wpointer-arith -Wcast-align -Wstrict-prototypes -Wwrite-strings -Waggregate-return -Wunreachable-code
 SANITIZE	:= -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize=null -fno-sanitize=alignment
-INCLUDE		:= -I$(INCLUDE_DIR)
+INCLUDE		:= -I$(INCLUDE_DIR) -I$(LIB_INCLUDE_DIR)
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
@@ -29,7 +36,10 @@ INCLUDE		:= -I$(INCLUDE_DIR)
 #------------------------------------------------------------------------------
 
 # Compile main file
-$(RUN_EXE): $(OBJECT_DIR) $(OBJECT)
+# $(TEST_HASH_FUNCTIONS): $(OBJECT_DIR) $(COMMON_OBJECT)
+# 	@$(CC) $(FLAGS) $(SANITIZE) $(INCLUDE) $(COMMON_OBJECT) -o $@
+
+$(TEST_HASH_TABLE): $(OBJECT_DIR) $(OBJECT)
 	@$(CC) $(FLAGS) $(SANITIZE) $(INCLUDE) $(OBJECT) -o $@
 
 # Include dependencies
@@ -37,6 +47,9 @@ $(RUN_EXE): $(OBJECT_DIR) $(OBJECT)
 
 # Make object files
 $(OBJECT_DIR)%.o: $(SOURCE_DIR)%.c
+	@$(CC) $(FLAGS) $(SANITIZE) $(INCLUDE) -MMD -MF $@.d -c -o $@ $<
+
+$(OBJECT_DIR)%.o: $(LIB_SOURCE_DIR)%.c
 	@$(CC) $(FLAGS) $(SANITIZE) $(INCLUDE) -MMD -MF $@.d -c -o $@ $<
 
 # Make object directory

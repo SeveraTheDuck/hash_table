@@ -1,5 +1,5 @@
 /**
- * @file list.h
+ * @file list_interface.h
  * @author SeveraTheDuck
  * @brief List interface
  *

@@ -20,6 +20,7 @@
 #include "hash_table.h"
 #include "doubly_linked_list.h"
 #include <assert.h>
+#include <stdint.h>
 
 
 

@@ -311,7 +311,11 @@ MakeSeparation (string_info* const text,
                 /* [[fallthrough]]; */
 
             case SEPARATOR_ELEMENT_NOT_TAKE:
-                if (cur_string_size == 0) break;
+                if (cur_string_size == 0)
+                {
+                    ++cur_string_begin;
+                    break;
+                }
 
                 strings_array[cur_string_index] =
                     StringInfoConstructor (cur_string_begin, cur_string_size);

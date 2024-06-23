@@ -18,6 +18,8 @@
 
 
 #include "hash_table.h"
+#include "doubly_linked_list.h"
+#include <assert.h>
 
 
 
@@ -45,7 +47,7 @@
  * @brief Returns zero, that's it
  */
 hash_table_index
-HashFunctionZero (hash_table_key* const,
+HashFunctionZero (hash_table_key* const key,
                   const size_t buckets_num);
 
 
@@ -53,7 +55,7 @@ HashFunctionZero (hash_table_key* const,
  * @brief Returns ASCII code of the first symbol
  */
 hash_table_index
-HashFunctionFirstASCII (hash_table_key* const,
+HashFunctionFirstASCII (hash_table_key* const key,
                         const size_t buckets_num);
 
 
@@ -61,7 +63,7 @@ HashFunctionFirstASCII (hash_table_key* const,
  * @brief Returns length of the received string
  */
 hash_table_index
-HashFunctionStringLength (hash_table_key* const,
+HashFunctionStringLength (hash_table_key* const key,
                           const size_t buckets_num);
 
 
@@ -69,7 +71,7 @@ HashFunctionStringLength (hash_table_key* const,
  * @brief Returns sum of ASCII codes of all symbols in the string
  */
 hash_table_index
-HashFunctionSumASCII (hash_table_key* const,
+HashFunctionSumASCII (hash_table_key* const key,
                       const size_t buckets_num);
 
 
@@ -79,7 +81,7 @@ HashFunctionSumASCII (hash_table_key* const,
  * @see Look at the implementation for details
  */
 hash_table_index
-HashFunctionRol (hash_table_key* const,
+HashFunctionRol (hash_table_key* const key,
                  const size_t buckets_num);
 
 
@@ -89,26 +91,28 @@ HashFunctionRol (hash_table_key* const,
  * @see Look at the implementation for details
  */
 hash_table_index
-HashFunctionRor (hash_table_key* const,
+HashFunctionRor (hash_table_key* const key,
                  const size_t buckets_num);
 
 /**
  * @brief Famous string hash function
  *
- * @see <a href="http://www.cse.yorku.ca/~oz/hash.html">Djb2</a>
+ * @see <a href="http://www.cse.yorku.ca/~oz/hash.html">Djb2 implementation</a>
  */
 hash_table_index
-HashFunctionDjb2 (hash_table_key* const,
+HashFunctionDjb2 (hash_table_key* const key,
                   const size_t buckets_num);
 
 
 /**
  * @brief Famous string hash function
  *
- * @see <a href ="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">Crc32</a>
+ * @see <a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">Crc32</a>
+ * @see <a href="http://en.wikipedia.org/wiki/Computation_of_cyclic_redundancy_checks">
+ * Crc32 implementation</a>
  */
 hash_table_index
-HashFunctionCrc32 (hash_table_key* const,
+HashFunctionCrc32 (hash_table_key* const key,
                    const size_t buckets_num);
 
 /** @} */ // end of hash_functions group

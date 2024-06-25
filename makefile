@@ -1,3 +1,5 @@
+SHELL := /bin/zsh
+
 #------------------------------------------------------------------------------
 # Prepare file groups
 #------------------------------------------------------------------------------
@@ -82,7 +84,7 @@ TEXT		:= text.txt
 HT_SIZE		:= 2000
 
 # Makeplot script
-PY			:= python
+PY			:= python3
 SCRIPT		:= $(TEST_DIR)/makeplot.py
 IMG_DIR		:= img/
 
@@ -109,7 +111,7 @@ run_functions_test: $(OUTPUT_DIR) $(TEST_HASH_FUNCTIONS)
 	@index=0; for i in $(HF_NAMES); do 											\
 		./$(TEST_HASH_FUNCTIONS) $(TEXT) $(HT_SIZE) $$index > $(OUTPUT_DIR)$$i;	\
 		$(PY) $(SCRIPT) $(IMG_DIR) $(OUTPUT_DIR)$$i;							\
-		((index = index + 1));													\
+		((index=$$index + 1));													\
 	done
 
 #------------------------------------------------------------------------------

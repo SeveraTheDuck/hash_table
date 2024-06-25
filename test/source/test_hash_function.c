@@ -91,7 +91,7 @@ PrintResults (const hash_table_t* const table)
     assert (table);
 
     PrintBucketsCountArray (table);
-    fprintf (stderr, "%lf\n", CalculateDispersion (table));
+    fprintf (stderr, "Dispersion %lf\n", CalculateDispersion (table));
 }
 
 

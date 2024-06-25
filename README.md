@@ -8,12 +8,14 @@
 3. [Implementation details](#implementation-details)
 4. [Project structure](#project-structure)
 5. [Downloading project](#downloading-and-using-project)
+6. [My tests results](#my-tests-results)
+    - [Hash functions tests](#hash-functions-tests)
 
 ## Goals
 1. **Implement** a hash table that can receive different hash functions.
 2. **Compare** hash functions and choose the most efficient.
 3. **Explore** several code fragments within different compiler optimization flags.
-4. **Analyze** code via [pref](https://perf.wiki.kernel.org/index.php/Main_Page) utility and find code bottlenecks.
+4. **Analyze** code via [perf](https://perf.wiki.kernel.org/index.php/Main_Page) utility and find code bottlenecks.
 5. **Optimize** bottlenecks by other decisions in code architecture.
 6. **Optimize** code bottlenecks with intrinsic functions and inline assembly.
 
@@ -72,7 +74,7 @@ Here are the steps to download the project and run the tests:
 
 6. ***Not yet implemented***
 
-## My test results
+## My tests results
 I ran the tests on the "Crime and punishment" text from Fyodor Dostoevsky (in English). It had around 10'000 unique words. I ran tests using a hash table with 2'000 buckets.
 
 ### Hash functions tests
@@ -103,4 +105,5 @@ Results:
 | Djb2 | $5.0$ |
 | Crc32 | $5.2$ |
 
-As we can, predictably, see HashFunctionZero has enormous dispersion value (if you try to run tests, you will see that it also hits the working time). HashFunctionSumASCII may also be used if the hash table is small enough. The best hash functions are djb2 and crc32 - the difference between them is something debatable, it depends on the text.
+As we can, predictably, see, HashFunctionZero has enormous dispersion value (if you try to run tests, you will see that it also hits the working time). HashFunctionSumASCII may be used if the hash table is small enough.
+The best hash functions are djb2 and crc32 - the difference between them is something debatable, it depends on the text.

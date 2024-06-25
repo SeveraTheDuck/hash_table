@@ -308,7 +308,9 @@ MakeSeparation (string_info* const text,
 
             case SEPARATOR_ELEMENT_TAKE:
                 ++cur_string_size;
-                /* [[fallthrough]]; */
+                #if __STDC_VERSION__ >= 202300L
+                    [[fallthrough]];
+                #endif
 
             case SEPARATOR_ELEMENT_NOT_TAKE:
                 if (cur_string_size == 0)

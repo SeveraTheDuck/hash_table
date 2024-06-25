@@ -91,7 +91,7 @@ PrintResults (const hash_table_t* const table)
     assert (table);
 
     PrintBucketsCountArray (table);
-    printf ("%lf\n", CalculateDispersion (table));
+    fprintf (stderr, "%lf\n", CalculateDispersion (table));
 }
 
 
@@ -128,7 +128,6 @@ PrintBucketsCountArray (const hash_table_t* const table)
     const size_t buckets_number = table->buckets_num;
     hash_table_bucket** buckets_array = table->buckets;
 
-    printf ("%zu\n", buckets_number);
     for (size_t i = 0; i < buckets_number; ++i)
         printf ("%zu %zu\n", i, GetBucketElemNumber (buckets_array[i]));
 }

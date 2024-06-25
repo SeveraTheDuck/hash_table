@@ -68,3 +68,49 @@ $(OBJECT_DIR):
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
+
+
+
+#------------------------------------------------------------------------------
+# Run tests
+#------------------------------------------------------------------------------
+
+OUTPUT_DIR	:= output/
+
+# Rum params
+TEXT		:= text.txt
+HT_SIZE		:= 2000
+
+# Makeplot script
+PY			:= python
+SCRIPT		:= $(TEST_DIR)/makeplot.py
+IMG_DIR		:= img/
+
+# Hash functions output file names
+HASH_FUNCTION_ZERO			:= zero_index.out
+HASH_FUNCTION_FIRST_ASCII	:= first_ascii.out
+HASH_FUNCTION_STRING_LEN	:= word_length.out
+HASH_FUNCTION_SUM_ASCII		:= ascii_sum.out
+HASH_FUNCTION_DJB2			:= djb2.out
+HASH_FUNCTION_CRC32			:= crc32.out
+
+HF_NAMES := $(HASH_FUNCTION_ZERO)		\
+			$(HASH_FUNCTION_FIRST_ASCII)\
+			$(HASH_FUNCTION_STRING_LEN)	\
+			$(HASH_FUNCTION_SUM_ASCII)	\
+			$(HASH_FUNCTION_DJB2)		\
+			$(HASH_FUNCTION_CRC32)
+
+
+$(OUTPUT_DIR):
+	@mkdir -p $@
+
+run_functions_test: $(OUTPUT_DIR) $(TEST_HASH_FUNCTIONS)
+	@index=0; for i in $(HF_NAMES); do 											\
+		./$(TEST_HASH_FUNCTIONS) $(TEXT) $(HT_SIZE) $$index > $(OUTPUT_DIR)$$i;	\
+		$(PY) $(SCRIPT) $(IMG_DIR) $(OUTPUT_DIR)$$i;							\
+		((index = index + 1));													\
+	done
+
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------

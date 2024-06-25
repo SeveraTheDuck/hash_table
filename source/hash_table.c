@@ -129,14 +129,19 @@ HashTableValueDestructor (hash_table_value* const value)
 hash_table_error_status
 HashTableInsert (hash_table_t*     const table,
                  hash_table_key*   const key,
-                 hash_table_value* const value)
+                 hash_table_value* const value,
+                 hash_table_key_comparator key_cmp)
 {
     if (table         == NULL ||
         table->h_func == NULL ||
-        key           == NULL)
+        key           == NULL ||
+        key_cmp       == NULL)
         return HASH_TABLE_ERROR;
 
     hash_table_bucket* const bucket = GetBucket (table, key);
+    hash_table_node*   const node   = ListFindNode (bucket, key, key_cmp);
+
+    if (node != NULL) return HASH_TABLE_SUCCESS;
 
     if (ListPushBack (bucket, key, value) == LIST_ERROR)
         return HASH_TABLE_ERROR;

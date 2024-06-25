@@ -191,15 +191,21 @@ HashTableValueDestructor (hash_table_value* const value);
  * @param table Hash table to insert into
  * @param key Key of the inserting node
  * @param value Value of the inserting node
+ * @param key_cmp A comparator function
  *
  * @retval HASH_TABLE_SUCCESS if function ended successfully
+ * @retval HASH_TABLE_SUCCESS if such key is already in the hash table
  * @retval HASH_TABLE_ERROR if allocation error occured
  * @retval HASH_TABLE_ERROR if bad input received
+ *
+ * @details Finds given key in the hash table
+ * If the key is not found, inserts node with given key and value
  */
 hash_table_error_status
 HashTableInsert (hash_table_t*     const table,
                  hash_table_key*   const key,
-                 hash_table_value* const value);
+                 hash_table_value* const value,
+                 hash_table_key_comparator key_cmp);
 
 
 /**

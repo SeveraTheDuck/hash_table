@@ -46,7 +46,7 @@ HashFunctionStringLength (hash_table_key* const key,
     assert (key->key);
     assert (buckets_num > 0);
 
-    return (key->key_size - 1) % buckets_num;
+    return (key->key_size) % buckets_num;
 }
 
 
@@ -59,7 +59,7 @@ HashFunctionSumASCII (hash_table_key* const key,
     assert (buckets_num > 0);
 
     hash_table_index sum = 0;
-    const size_t len = key->key_size - 1;
+    const size_t len = key->key_size;
     const unsigned char* const str = key->key;
 
     for (size_t i = 0; i < len; ++i)
@@ -88,7 +88,7 @@ HashFunctionDjb2 (hash_table_key* const key,
     assert (buckets_num > 0);
 
     hash_table_index hash = 5381;
-    const size_t len = key->key_size - 1;
+    const size_t len = key->key_size;
     const unsigned char* const str = key->key;
 
     for (size_t i = 0; i < len; ++i)
@@ -183,7 +183,7 @@ HashFunctionCrc32 (hash_table_key* const key,
     assert (buckets_num > 0);
 
     uint32_t hash = 0xffffffff;
-    const size_t len = key->key_size - 1;
+    const size_t len = key->key_size;
     const unsigned char* const str = key->key;
 
     for (size_t i = 0; i < len; ++i)
@@ -191,7 +191,7 @@ HashFunctionCrc32 (hash_table_key* const key,
         hash = (hash >> 8) ^ crc32_table [(hash ^ str[i]) & 0xff];
     }
 
-    return ~hash;
+    return ~hash % buckets_num;
 }
 
 //-----------------------------------------------------------------------------

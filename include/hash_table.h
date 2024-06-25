@@ -19,12 +19,9 @@
 //-----------------------------------------------------------------------------
 
 /**
- * @brief Hash table structure
- *
- * @details This structure contains array of buckets and a hash function
- * Other fields are implementation specific
+ * @brief Type for hash table bucket
  */
-typedef struct hash_table hash_table_t;
+typedef list_t hash_table_bucket;
 
 
 /**
@@ -58,6 +55,21 @@ typedef size_t hash_table_index;
  */
 typedef
 hash_table_index (*hash_function) (hash_table_key* const, const size_t);
+
+
+/**
+ * @brief Hash table structure
+ *
+ * @details This structure contains array of buckets and a hash function
+ */
+typedef
+struct hash_table
+{
+    hash_table_bucket** buckets;        ///< array of buckets
+    size_t              buckets_num;    ///< number of buckets
+    hash_function       h_func;         ///< hash function
+    size_t              elem_number;    ///< total number of elements
+} hash_table_t;
 
 
 /**
